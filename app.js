@@ -26,10 +26,22 @@ require('./app_server/config/passport');
 var CtrlAuth = require('./app_server/controllers/authentication');
 var CtrlProfile = require('./app_server/controllers/profile');
 
-// SPA view route ===========================================
+// what part is this ? =======================================
 
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(morgan('dev'));
+app.use(passport.initialize())
+
+// Routes ===================================================
+
+var routesApi = require('./app_server/routes/users')
 var routeur = require('./app_server/routes/index')
 app.use(passport.initialize());
+app.use('/api', routesApi);
 app.use('/', routeur);
 
 // Default Port =============================================
@@ -46,15 +58,6 @@ app.use(function (err, req, res, next) {
   }
 });
 
-// what part is this ? =======================================
-
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')))
-app.use(morgan('dev'));
-app.use(passport.initialize())
 
 server.listen(PORT, function() {
   console.log("Party started at http://localhost:" + PORT);

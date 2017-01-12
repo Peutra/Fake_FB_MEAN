@@ -4,14 +4,15 @@ var path = require('path')
 var User = require(path.join(__dirname, '../models/user.js'))
 
 var register = function(req, res) {
+  console.log(req.body)
   var user = new User()
 
   user.name = req.body.name;
   user.email = req.body.email;
 
   user.setPassword(req.body.password)
-
   user.save(function(err) {
+    if (err) throw err
     var token
     token = user.generateJswt()
     res.status(200)

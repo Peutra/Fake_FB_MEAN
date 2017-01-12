@@ -1,4 +1,7 @@
-var User = require('../models/user')
+var passport = require('passport');
+var mongoose = require('mongoose');
+var path = require('path')
+var User = require(path.join(__dirname, '../models/user.js'))
 
 var register = function(req, res) {
   var user = new User()

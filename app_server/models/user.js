@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
 var crypto = require('crypto')
 var jwt = require('jsonwebtoken')
+var path = require('path')
 var config = require(path.join(__dirname, '../config/config.js'))
 
 var Schema = mongoose.Schema
@@ -29,8 +30,6 @@ userSchema.methods.validPassword = function(password) {
   var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
   return this.hash === hash;
 }
-
-// Seems like generateJswt is unused for now
 
 userSchema.methods.generateJswt = function() {
   var expiry = new Date();

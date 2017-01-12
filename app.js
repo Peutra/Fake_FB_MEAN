@@ -18,32 +18,23 @@ var server        = require('http').createServer(app)
 // Connection to DB ==========================================
 
 var dbconnection  = require('./app_server/models/connect_db').connectdb()
+var User = require('./app_server/models/user')
+require('./app_server/config/passport');
 
 // controllers ==============================================
 
 var CtrlAuth = require('./app_server/controllers/authentication');
+var CtrlProfile = require('./app_server/controllers/profile');
 
 // SPA view route ===========================================
 
 var routeur = require('./app_server/routes/index')
+app.use(passport.initialize());
 app.use('/', routeur);
 
 // Default Port =============================================
 
 var PORT = ( process.env.PORT || 8080 );
-
-// Passport config ==========================================
-
-passport.use(new JwtStrategy({
-    jwtFromRequest: ExtractJwt.fromAuthHeader(),
-    secretOrKey: utils.secret
-  }, function(jwt_payload, done) {
-  User.findOne({ id: jwt_payload.id }, function(err, user) {
-    if (err) return done(err, false);
-    if (user) return  done(null, user);
-    return done(null, false);
-  });
-}));
 
 // error handlers ===========================================
 // Catch unauthorised errors (see index.js routes)

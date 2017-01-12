@@ -3,6 +3,7 @@ var router        = express.Router()
 var path          = require('path')
 var jwt           = require('express-jwt')
 var config        = require(path.join(__dirname, '../config/config.js'))
+var User          = require(path.join(__dirname, '../models/user.js'))
 
 var auth = jwt({
   secret: config.secret,

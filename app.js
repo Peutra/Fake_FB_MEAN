@@ -15,7 +15,7 @@ var bodyParser    = require('body-parser')
 var app           = express()
 var server        = require('http').createServer(app)
 
-// Connection to DB ==========================================
+// connection to DB ==========================================
 
 var dbconnection  = require('./app_server/models/connect_db').connectdb()
 var User = require('./app_server/models/user')
@@ -39,9 +39,9 @@ app.use(passport.initialize())
 // Routes ===================================================
 
 var routesApi = require('./app_server/routes/users')
-var routeur = require('./app_server/routes/index')
 app.use(passport.initialize());
 app.use('/api', routesApi);
+var routeur = require('./app_server/routes/index')
 app.use('/', routeur);
 
 // Default Port =============================================

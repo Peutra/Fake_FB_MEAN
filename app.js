@@ -32,7 +32,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')))
 app.use(morgan('dev'));
 app.use(passport.initialize())
 
@@ -41,8 +40,12 @@ app.use(passport.initialize())
 var routesApi = require('./app_server/routes/users')
 app.use(passport.initialize());
 app.use('/api', routesApi);
-var routeur = require('./app_server/routes/index')
-app.use('/', routeur);
+// var routeur = require('./app_server/routes/index')
+// app.use(app.router);
+// app.use(express.static())
+app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'public/app_client/index.html'))
+});
 
 // Default Port =============================================
 

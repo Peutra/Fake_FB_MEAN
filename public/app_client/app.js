@@ -1,1 +1,1 @@
-var app = angular.module('twitterMean', ['ngRoute']);
+var app = angular.module('twitterMean', ['ui.router']);

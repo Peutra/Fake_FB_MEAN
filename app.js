@@ -15,6 +15,16 @@ var bodyParser    = require('body-parser')
 var app           = express()
 var server        = require('http').createServer(app)
 
+// app config ================================================
+
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(morgan('dev'));
+app.use(passport.initialize())
+app.use(express.static(path.join(__dirname, 'public')));
+
 // connection to DB ==========================================
 
 var dbconnection  = require('./app_server/models/connect_db').connectdb()
@@ -26,33 +36,26 @@ require('./app_server/config/passport');
 var CtrlAuth = require('./app_server/controllers/authentication');
 var CtrlProfile = require('./app_server/controllers/profile');
 
-// what part is this ? =======================================
-
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(morgan('dev'));
-app.use(passport.initialize())
 
 // Routes ===================================================
+
+app.use('/public', express.static(__dirname + '/public'));
+app.use('/app_client', express.static(__dirname + '/public/app_client'));
+app.use('/vendors', express.static(__dirname + '/public/app_client/vendors'));
 
 var routesApi = require('./app_server/routes/users')
 app.use(passport.initialize());
 app.use('/api', routesApi);
-// var routeur = require('./app_server/routes/index')
-// app.use(app.router);
-// app.use(express.static())
-app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'public/app_client/index.html'))
+app.get('/', function(req, res) {
+    res.sendFile('index.html', { root: path.join(__dirname, './public/app_client') })
 });
+
 
 // Default Port =============================================
 
 var PORT = ( process.env.PORT || 8080 );
 
 // error handlers ===========================================
-// Catch unauthorised errors (see index.js routes)
 
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
@@ -60,7 +63,6 @@ app.use(function (err, req, res, next) {
     res.json({"message" : err.name + ": " + err.message});
   }
 });
-
 
 server.listen(PORT, function() {
   console.log("Party started at http://localhost:" + PORT);

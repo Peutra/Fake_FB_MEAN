@@ -6,7 +6,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: '/register',
       templateUrl: '/views/register.html',
       controller: 'registerController'
-
     })
 
 })

@@ -1,9 +1,9 @@
-app.factory('DataService',  ['$http', '$window', function($http, $window) {
+app.factory('DataService',  ['$http', 'AuthService', function($http, AuthService) {
 
   var getProfile = function () {
       return $http.get('/api/profile', {
         headers: {
-          Authorization: 'Bearer '+ authentication.getToken()
+          Authorization: 'Bearer '+ AuthService.getToken()
         }
       });
     };

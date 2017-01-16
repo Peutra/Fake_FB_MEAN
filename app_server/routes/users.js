@@ -4,8 +4,8 @@ var path          = require('path')
 var jwt           = require('express-jwt')
 var config        = require(path.join(__dirname, '../config/config.js'))
 var User          = require(path.join(__dirname, '../models/user.js'))
-
-var ctrlAuth     = require(path.join(__dirname, '../controllers/authentication.js'))
+var ctrlAuth      = require(path.join(__dirname, '../controllers/authentication.js'))
+var ctrlProfile   = require(path.join(__dirname, '../controllers/profile.js'))
 
 /* Authentication */
 
@@ -15,17 +15,14 @@ var auth = jwt({
 });
 
 routerApi.post('/register', function(req, res, next) {
-  var name = req.body.name
-  var email = req.body.email
-  var password = req.body.password
   ctrlAuth.register(req, res)
 })
 
 routerApi.post('/login', function(req, res, next) {
-  var email = req.body.email
-  var password = req.body.password
   ctrlAuth.login(req, res)
 })
+
+routerApi.get('/profile', auth, ctrlProfile.profileRead);
 
 
 module.exports = routerApi;

@@ -1,4 +1,4 @@
-app.controller('registerController', ['$scope', 'AuthService', function($scope, AuthService) {
+app.controller('registerController', ['$scope', 'AuthService', '$location', function($scope, AuthService, $location) {
     var vm = this;
     vm.credentials = {
       name : "",
@@ -12,8 +12,7 @@ app.controller('registerController', ['$scope', 'AuthService', function($scope, 
           alert(err);
         })
         .then(function(){
-          console.log("registered")
-          // TODO CHANGE REDIRECTION
+          $location.path('profile')
         });
     };
 }])

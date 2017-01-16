@@ -16,8 +16,17 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       controllerAs: 'vm'
     }
 
+    var profileState = {
+      name: 'profile',
+      url: '/profile',
+      templateUrl: '/app_client/views/profile.html',
+      controller: 'profileController',
+      controllerAs: 'vm'
+    }
+
     $stateProvider.state(registerState)
     $stateProvider.state(loginState)
+    $stateProvider.state(profileState)
 
     $locationProvider.html5Mode({
         enabled: true,

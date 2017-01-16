@@ -1,4 +1,4 @@
-app.controller('loginController', [ '$scope', 'AuthService',  function($scope, AuthService) {
+app.controller('loginController', [ '$scope', 'AuthService', '$state', '$rootScope', function($scope, AuthService, $state, $rootScope) {
   var vm = this;
 
   vm.credentials = {
@@ -12,9 +12,9 @@ app.controller('loginController', [ '$scope', 'AuthService',  function($scope, A
     .catch(function(err){
       alert(err);
     })
-    .then(function(){
-      console.log("successfuly logged in")
-      // TODO redirect to profile or something
+    .then(function() {
+      $rootScope.islogged = true
+      $state.go("profile")
     });
   };
 

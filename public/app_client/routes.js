@@ -1,10 +1,11 @@
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
-
-      var registerState = {
+    var registerState = {
       name: 'register',
       url: '/register',
-      templateUrl: "/app_client/views/register.html"
+      templateUrl: "/app_client/views/register.html",
+      controller: 'registerController',
+      controllerAs: 'vm'
     }
 
     $stateProvider.state(registerState)

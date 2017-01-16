@@ -4,7 +4,7 @@ app.controller('registerController', ['$scope', 'AuthService', function($scope, 
       name : "",
       email : "",
       password : ""
-    };  
+    };
     vm.onSubmit = function () {
       AuthService
         .register(vm.credentials)
@@ -13,6 +13,7 @@ app.controller('registerController', ['$scope', 'AuthService', function($scope, 
         })
         .then(function(){
           console.log("registered")
+          // TODO CHANGE REDIRECTION
         });
     };
 }])

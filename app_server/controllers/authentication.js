@@ -33,7 +33,7 @@ var login = function(req, res) {
     }
     if (user) {
       token = user.generateJswt();
-      res.status(200)
+      res.status(200)      
       res.json({
         "token" : token
       })

@@ -25,7 +25,9 @@
     <script src="/app_client/controllers/MainCtrl.js"></script>
     <script src="/app_client/controllers/LoginCtrl.js"></script>
     <script src="/app_client/controllers/RegisterCtrl.js"></script>
+    <script src="/app_client/controllers/NavigationCtrl.js"></script>
     <script src="/app_client/services/AuthService.js"></script>
+    <script src="/app_client/services/DataService.js"></script>
   </head>
   <body ng-app="twitterMean">
     <div ng-controller="mainController">
@@ -37,6 +39,7 @@
           </div>
         </div>
         <div class="spacer"></div>
+        <div ui-view="navbar"></div>
         <ui-view></ui-view>
     <div>
   </body>

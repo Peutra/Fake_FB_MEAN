@@ -1,11 +1,11 @@
 app.factory('AuthService',  ['$http', '$window', function($http, $window) {
 
     var saveToken = function (token) {
-      $window.localStorage['mean-token'] = token;
+      localStorage['mean-token'] = token;
     };
 
     var getToken = function () {
-      return $window.localStorage['mean-token'];
+      return localStorage['mean-token'];
     };
 
     var isLoggedIn = function() {
@@ -14,7 +14,7 @@ app.factory('AuthService',  ['$http', '$window', function($http, $window) {
 
       if(token){
         payload = token.split('.')[1];
-        payload = $window.atob(payload);
+        payload = atob(payload);
         payload = JSON.parse(payload);
 
         return payload.exp > Date.now() / 1000;
@@ -27,7 +27,7 @@ app.factory('AuthService',  ['$http', '$window', function($http, $window) {
       if(isLoggedIn()){
         var token = getToken();
         var payload = token.split('.')[1];
-        payload = $window.atob(payload);
+        payload = atob(payload);
         payload = JSON.parse(payload);
         return {
           email : payload.email,
@@ -38,18 +38,18 @@ app.factory('AuthService',  ['$http', '$window', function($http, $window) {
 
     register = function(user) {
       return $http.post('/api/register', user).then(function(data){
-        saveToken(data.token);
+        saveToken(data.data.token);
       });
     };
 
     login = function(user) {
       return $http.post('/api/login', user).then(function(data) {
-        saveToken(data.token);
+        saveToken(data.data.token);
       });
     };
 
     logout = function() {
-      $window.localStorage.removeItem('mean-token');
+      localStorage.removeItem('mean-token');
     };
 
     return {

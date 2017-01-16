@@ -46,7 +46,7 @@ app.use('/vendors', express.static(__dirname + '/public/app_client/vendors'));
 var routesApi = require('./app_server/routes/users')
 app.use(passport.initialize());
 app.use('/api', routesApi);
-app.get('/', function(req, res) {
+app.get('*', function(req, res) {
     res.sendFile('index.html', { root: path.join(__dirname, './public/app_client') })
 });
 

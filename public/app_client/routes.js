@@ -1,11 +1,17 @@
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
-    $stateProvider
-    // REGISTER VIEW ========================================
-    .state('register', {
+
+      var registerState = {
+      name: 'register',
       url: '/register',
-      templateUrl: '/views/register.html',
-      controller: 'registerController'
-    })
+      templateUrl: "/app_client/views/register.html"
+    }
+
+    $stateProvider.state(registerState)
+
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+    });
 
 })

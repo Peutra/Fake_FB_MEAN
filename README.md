@@ -1,3 +1,3 @@
-# Twitter_MEAN
+# Fake_FB_MEAN
 Current MEAN rush @coding-academy EPITECH <br>
-Twitter like app in MEAN
+FB like app in MEAN
